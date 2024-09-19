@@ -1,3 +1,5 @@
+// Few parts of this scrips consists of GenAI generated code. They are commented.
+
 document.getElementById('prototypeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -9,7 +11,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     loadingSpinner.style.display = 'inline-block';
     loadingSpinner.innerHTML = '<div class="spinner"></div>';
 
-    // Send description to backend and fetch the generated prototype
+    // Send description to backend and fetch the generated prototype // Utilised GPT-4o to write this part of the scrip
     fetch('/generate-prototype', {
         method: 'POST',
         headers: {
@@ -28,7 +30,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
             // Display the generated prototype code
             generatedCodePre.textContent = data.generated_code;
         } else {
-            generatedCodePre.textContent = 'Error: ' + (data.error || 'An unexpected error occurred');
+            generatedCodePre.textContent = 'Error: ' + (data.error || 'Error');
         }
     })
     .catch(error => {
@@ -38,7 +40,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     });
 });
 
-// Copy the generated code to clipboard
+// Copy the generated code to clipboard // Utilised GPT-4o to write this part of the scrip
 document.getElementById('copy-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
     navigator.clipboard.writeText(generatedCode).then(() => {
