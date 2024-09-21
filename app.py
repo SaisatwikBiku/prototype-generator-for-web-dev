@@ -4,11 +4,11 @@ import google.generativeai as genai
 app = Flask(__name__)
 
 # Configure the Gemini API with your API key
-genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo")  # Replace with your Gemini API key
+genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo") 
 
 # Function to generate web prototype using Gemini API
 def generate_prototype(description):
-    # Improved prompt to guide the API
+    # Prompt generated using ChatGPT
     improved_prompt = f"""
     You are an expert web developer assistant. Your task is to generate fully executable HTML, CSS, and JavaScript code based on the following description: {description}.
 
