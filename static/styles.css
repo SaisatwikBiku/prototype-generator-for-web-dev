@@ -95,6 +95,7 @@ button:hover {
     background-color: #eeb211; 
     color: #46166b; 
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #copy-button:hover {
