@@ -54,14 +54,14 @@ nav ul li a:focus {
 .container {
     flex: 1; 
     max-width: 1200px;
-    margin: 20px auto;
+    margin: auto;
     padding: 20px;
 }
 
 .section {
     background-color: #ffffff;
     padding: 40px 20px;
-    margin: 20px 0;
+    margin: 20px 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -133,8 +133,12 @@ footer {
     padding: 20px;
     background-color: #46166b; 
     color: white;
-    margin-top: auto; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    z-index: 1000;
 }
+
 
 #contact ul {
     list-style: none;
