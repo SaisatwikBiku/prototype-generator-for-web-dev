@@ -70,6 +70,7 @@ nav ul li a:focus {
     background-color: #46166baa;
     color: #f3f3f3;
     padding: 10px;
+    border-radius: 8px;
 }
 
 textarea {
