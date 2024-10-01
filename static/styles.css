@@ -51,7 +51,7 @@ nav ul li a:focus {
     color: #eeb211; 
 }
 
-.container { /* Utilised GPT-4o to write this part of the style sheet */
+.container {
     flex: 1; 
     max-width: 1200px;
     margin: 20px auto;
@@ -91,15 +91,9 @@ button:hover {
     background-color: #c99b10;
 }
 
-#copy-button {
-    background-color: #eeb211; 
-    color: #46166b; 
-    margin-top: 10px;
+.copy-btn, .run-btn {
+    margin-left: 10px;
     margin-bottom: 10px;
-}
-
-#copy-button:hover {
-    background-color: #c99b10;
 }
 
 pre {
@@ -109,7 +103,6 @@ pre {
     font-family: 'Courier New', monospace;
     overflow-x: auto;
 }
-
 
 .team-container {
     display: flex;
@@ -133,7 +126,6 @@ footer {
     margin-top: auto; 
 }
 
-
 #contact ul {
     list-style: none;
     margin-top: 20px;
@@ -143,7 +135,6 @@ footer {
     margin-bottom: 10px;
     font-size: 1.2em;
 }
-
 
 .loading-spinner {
     display: none;

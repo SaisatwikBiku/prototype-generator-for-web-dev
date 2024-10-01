@@ -11,7 +11,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     loadingSpinner.style.display = 'inline-block';
     loadingSpinner.innerHTML = '<div class="spinner"></div>';
 
-    // Send description to backend and fetch the generated prototype // Utilised GPT-4o to write this part of the scrip
+    // Send description to backend and fetch the generated prototype
     fetch('/generate-prototype', {
         method: 'POST',
         headers: {
@@ -40,7 +40,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     });
 });
 
-// Copy the generated code to clipboard // Utilised GPT-4o to write this part of the scrip
+// Copy the generated code to clipboard
 document.getElementById('copy-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
     navigator.clipboard.writeText(generatedCode).then(() => {
@@ -48,4 +48,17 @@ document.getElementById('copy-button').addEventListener('click', function() {
     }).catch(err => {
         alert("Failed to copy: " + err);
     });
+});
+
+// Run the generated code in a new pop-up window
+document.getElementById('run-button').addEventListener('click', function() {
+    const generatedCode = document.getElementById('generated-code-pre').textContent;
+
+    // Open a new window
+    const newWindow = window.open('', '_blank');
+
+    // Write the generated code into the new window's document
+    newWindow.document.open();
+    newWindow.document.write(generatedCode);
+    newWindow.document.close();
 });

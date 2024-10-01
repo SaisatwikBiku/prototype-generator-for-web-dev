@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Utilized GenAI for this line here -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Prototype Generator</title>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='Web Prototype Generator.png') }}" type="image/x-icon"> <!-- canva design #1 -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Web Prototype Generator.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
     <nav>
-        <img src="{{ url_for('static', filename='Web Prototype Generator.png') }}" alt="WPG Logo"> <!-- canva design #1 -->
+        <img src="{{ url_for('static', filename='Web Prototype Generator.png') }}" alt="WPG Logo">
         <ul>
             <li><a href="#prototype-generator">Prototype Generator</a></li>
             <li><a href="#generated-code">Generated Code</a></li>
@@ -28,23 +28,25 @@
                 <label for="description">Enter a description of your desired prototype:</label>
                 <textarea id="description" name="description" rows="4" placeholder="e.g. A landing page for a restaurant with blue and white colors, including a header, footer, and contact form."></textarea>
                 <button type="submit" class="btn">Generate Prototype</button>
-                <div class="loading-spinner" id="loading-spinner"></div> 
+                <div class="loading-spinner" id="loading-spinner"></div>
             </form>
         </div>
 
         <!-- generated code section -->
-        <div class="section" id="generated-code">
-            <h2>Generated Code</h2>
-            <button class="copy-btn" id="copy-button">Copy Code</button>
-            <pre id="generated-code-pre"></pre>
-        </div>
+    <div class="section" id="generated-code">
+         <h2>Generated Code</h2>
+        <button class="copy-btn" id="copy-button">Copy Code</button>
+        <button class="run-btn" id="run-button">Run Code</button>
+        <pre id="generated-code-pre"></pre>
+    </div>
+
 
         <!-- meet our team section -->
         <div class="section" id="team">
             <h2>Our Team</h2>
             <div class="team-container">
                 <img src="{{ url_for('static', filename='team.png') }}" alt="Team Photo" class="team-photo">
-                <p>We are Team 7 from the Software Engineering Class at the University at Albany (Find our individual contacts in the "Contact US" section). We all are in MS in CS program for the Fall 2024. We want to solve problems of our Developer Community with our project. Initial phases of Web development process are often difficult because of repeated prototyping. We want to make it hassle free with our quick prototyping tool.</p>
+                <p>We are Team 7 from the Software Engineering Class at the University at Albany. We aim to simplify web development with a quick prototyping tool.</p>
             </div>
         </div>
 
@@ -52,8 +54,8 @@
         <div class="section" id="contact">
             <h2>Contact Us</h2>
             <p>If you have any questions or want to reach out to us, feel free to contact us!</p>
-            <ul> <!-- names in the order of messages sent in the team chat -->
-                <li><strong>Sai Satwik Bikumandla: </strong><a href="mailto:sbikumandla@albany.edu">sbikumandla@albany.edu</a></li> 
+            <ul>
+                <li><strong>Sai Satwik Bikumandla: </strong><a href="mailto:sbikumandla@albany.edu">sbikumandla@albany.edu</a></li>
                 <li><strong>Jyotsana R Parkhedkar: </strong><a href="mailto:jparkhedkar@albany.edu">jparkhedkar@albany.edu</a></li>
                 <li><strong>Sai Ram Navuluri: </strong><a href="mailto:snavuluri@albany.edu">snavuluri@albany.edu</a></li>
                 <li><strong>Shreyash Govind Mungilwar: </strong><a href="mailto:smungilwar@albany.edu">smungilwar@albany.edu</a></li>
