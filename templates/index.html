@@ -12,18 +12,18 @@
     <nav>
         <img src="{{ url_for('static', filename='Web Prototype Generator.png') }}" alt="WPG Logo">
         <ul>
-            <li><a href="#prototype-generator">Prototype Generator</a></li>
-            <li><a href="#generated-code">Generated Code</a></li>
+            <li><a href="#prototype-generator" class="highlight-nav">Prototype Generator</a></li>
+            <li><a href="#generated-code" class="highlight-nav">Generated Code</a></li>
             <li><a href="#project-overview">Project Overview</a></li>
             <li><a href="#team">Meet our Team</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
         <!-- Dark Mode Toggle -->
-        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+        <button id="dark-mode-toggle">Dark Mode</button>
     </nav>
 
     <div class="container">
-        <!-- prototype generator section -->
+        <!-- Prototype generator section -->
         <div class="section" id="prototype-generator">
             <h1>Web Prototype Generator</h1>
             <div class="sub-section">
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <!-- generated code section -->
+        <!-- Generated code section -->
         <div class="section" id="generated-code">
             <h2>Generated Code</h2>
             <button class="copy-btn" id="copy-button">Copy Code</button>
@@ -54,7 +54,7 @@
             </p>
         </div>
 
-        <!-- meet our team section -->
+        <!-- Meet our team section -->
         <div class="section" id="team">
             <h2>Our Team</h2>
             <div class="team-container">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <!-- contact us section -->
+        <!-- Contact us section -->
         <div class="section" id="contact">
             <h2>Contact Us</h2>
             <p>If you have any questions or want to reach out to us, feel free to contact us!</p>
@@ -83,6 +83,9 @@
     <footer>
         <p> 2024 Web Prototype Generator by Team 7, Software Engineering Class | University at Albany</p>
     </footer>
+
+    <!-- Go to Top Button -->
+    <button id="go-to-top" title="Go to Top">⬆️</button>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
