@@ -9,6 +9,9 @@
 </head>
 <body>
 
+    <!-- Sentinel element for Intersection Observer -->
+    <div id="scroll-sentinel"></div>
+
     <nav>
         <img src="{{ url_for('static', filename='Web Prototype Generator.png') }}" alt="WPG Logo">
         <ul>
@@ -85,7 +88,7 @@
     </footer>
 
     <!-- Go to Top Button -->
-    <button id="go-to-top" title="Go to Top">⬆️</button>
+    <button id="go-to-top" title="Go to Top">Go to Top</button>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

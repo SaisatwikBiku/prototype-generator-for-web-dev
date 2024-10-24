@@ -190,7 +190,7 @@ footer {
     position: fixed; 
     bottom: 0; 
     width: 100%; 
-    z-index: 1000;
+    z-index: 999;
 }
 
 .dark-mode footer {
@@ -229,9 +229,9 @@ footer {
 /* Styles for the Go to Top button */
 #go-to-top {
     position: fixed;
-    bottom: 20px;
+    bottom: 80px; /* Placed 80px above the bottom (above footer) */
     right: 20px;
-    z-index: 100;
+    z-index: 1000; /* Ensure it stays above other content */
     background-color: #eeb211; 
     color: #46166b;
     border: none;
