@@ -14,9 +14,12 @@
         <ul>
             <li><a href="#prototype-generator">Prototype Generator</a></li>
             <li><a href="#generated-code">Generated Code</a></li>
+            <li><a href="#project-overview">Project Overview</a></li>
             <li><a href="#team">Meet our Team</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
+        <!-- Dark Mode Toggle -->
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </nav>
 
     <div class="container">
@@ -24,23 +27,39 @@
         <div class="section" id="prototype-generator">
             <h1>Web Prototype Generator</h1>
             <div class="sub-section">
-                    <form id="prototypeForm">
-                        <label for="description">Enter a description of your desired prototype. <br>Make sure you are <i><b>descriptive</b></i> about your expected output. The more details you give, the better output you get.</label>
-                        <textarea id="description" name="description" rows="4" placeholder="e.g. A landing page for a restaurant with blue and white colors, including a header, footer, and contact form."></textarea>
-                        <button type="submit" class="btn">Generate Prototype</button>
-                        <div class="loading-spinner" id="loading-spinner"></div>
-            </form>
+                <form id="prototypeForm">
+                    <label for="description">Enter a description of your desired prototype. <br>Make sure you are <i><b>descriptive</b></i> about your expected output. The more details you give, the better output you get.</label>
+                    <textarea id="description" name="description" rows="4" placeholder="e.g. A landing page for a restaurant with blue and white colors, including a header, footer, and contact form."></textarea>
+                    <button type="submit" class="btn">Generate Prototype</button>
+                    <div class="loading-spinner" id="loading-spinner"></div>
+                </form>
             </div>
         </div>
 
         <!-- generated code section -->
-    <div class="section" id="generated-code">
-         <h2>Generated Code</h2>
-        <button class="copy-btn" id="copy-button">Copy Code</button>
-        <button class="run-btn" id="run-button">Run Code</button>
-        <pre id="generated-code-pre"></pre>
-    </div>
+        <div class="section" id="generated-code">
+            <h2>Generated Code</h2>
+            <button class="copy-btn" id="copy-button">Copy Code</button>
+            <button class="run-btn" id="run-button">Run Code</button>
+            <pre id="generated-code-pre"></pre>
+        </div>
 
+        <!-- Project Overview section -->
+        <div class="section" id="project-overview">
+            <h2>Project Overview</h2>
+            <p>
+                The Prototype Creator for Web Developers is an innovative tool that enables
+                rapid website prototyping based on client requirements. Users can either
+                provide a natural language description or select options from a dropdown
+                menu for five key parameters (e.g., layout, theme, functionality). Using this
+                input, the tool dynamically generates a customized web prototype through API
+                integration, streamlining the design process and producing responsive,
+                code-ready outputs that match the client's vision.
+            </p>
+            <p>
+                The objective of this project is to automate the initial design phase by allowing developers to create prototypes quickly and easily. The tool integrates natural language processing and various form input parameters to generate a web-ready output that simplifies collaboration between clients and developers.
+            </p>
+        </div>
 
         <!-- meet our team section -->
         <div class="section" id="team">
