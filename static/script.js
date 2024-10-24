@@ -80,3 +80,19 @@ toggleSwitch.addEventListener('click', function() {
     }
     localStorage.setItem('theme', theme);
 });
+
+// Show "Go to Top" button when scrolling
+const goToTopBtn = document.getElementById('go-to-top');
+
+window.onscroll = function() {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        goToTopBtn.style.display = 'block'; // Show the button when scrolled down
+    } else {
+        goToTopBtn.style.display = 'none'; // Hide the button when near the top
+    }
+};
+
+// Scroll to the top when the "Go to Top" button is clicked
+goToTopBtn.addEventListener('click', function() {
+    window.scrollTo({top: 0, behavior: 'smooth'}); // Smooth scrolling to top
+});
