@@ -1,3 +1,4 @@
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +14,16 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+.dark-mode nav {
+    background-color: #333;
+    color: #f5f5f5;
 }
 
 nav {
@@ -51,6 +62,15 @@ nav ul li a:focus {
     color: #eeb211; 
 }
 
+.dark-mode nav ul li a {
+    color: #f5f5f5;
+}
+
+.dark-mode nav ul li a:hover,
+.dark-mode nav ul li a:focus {
+    color: #eeb211;
+}
+
 .container {
     flex: 1; 
     max-width: 1200px;
@@ -64,6 +84,11 @@ nav ul li a:focus {
     margin: 20px 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+
+.dark-mode .section {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
 .sub-section {
@@ -86,6 +111,7 @@ textarea {
     font-size: 16px;
 }
 
+/* Normal Mode Button Styles */
 button {
     background-color: #eeb211; 
     color: #46166b; 
@@ -101,6 +127,16 @@ button:hover {
     background-color: #c99b10;
 }
 
+/* Dark Mode Button Styles */
+.dark-mode button {
+    background-color: #6a1b9a; /* Purple buttons */
+    color: #ffffff;
+}
+
+.dark-mode button:hover {
+    background-color: #53207a; /* Darker shade on hover */
+}
+
 .copy-btn, .run-btn {
     margin-left: 10px;
     margin-bottom: 10px;
@@ -112,6 +148,11 @@ pre {
     border-radius: 4px;
     font-family: 'Courier New', monospace;
     overflow-x: auto;
+}
+
+.dark-mode pre {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
 }
 
 .team-container {
@@ -139,6 +180,9 @@ footer {
     z-index: 1000;
 }
 
+.dark-mode footer {
+    background-color: #333;
+}
 
 #contact ul {
     list-style: none;

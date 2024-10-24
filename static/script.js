@@ -1,5 +1,4 @@
-// Few parts of this scrips consists of GenAI generated code. They are commented.
-
+// Form submission to generate prototype
 document.getElementById('prototypeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -61,4 +60,23 @@ document.getElementById('run-button').addEventListener('click', function() {
     newWindow.document.open();
     newWindow.document.write(generatedCode);
     newWindow.document.close();
+});
+
+// Toggle dark mode and save preference to local storage
+const toggleSwitch = document.getElementById('dark-mode-toggle');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme) {
+    document.body.classList.add(currentTheme);
+}
+
+// Toggle theme on button click and save to local storage
+toggleSwitch.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+
+    let theme = 'light';
+    if (document.body.classList.contains('dark-mode')) {
+        theme = 'dark-mode';
+    }
+    localStorage.setItem('theme', theme);
 });
