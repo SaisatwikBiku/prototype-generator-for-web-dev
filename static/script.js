@@ -6,6 +6,11 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     const loadingSpinner = document.getElementById('loading-spinner');
     const generatedCodePre = document.getElementById('generated-code-pre');
 
+    if (!description) {
+        alert('Please enter a description.');
+        return;
+    }
+
     // Show the loading spinner
     loadingSpinner.style.display = 'inline-block';
     loadingSpinner.innerHTML = '<div class="spinner"></div>';
@@ -20,7 +25,12 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
             'description': description
         })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error: ' + response.statusText);
+        }
+        return response.json();
+    })
     .then(data => {
         // Hide the loading spinner
         loadingSpinner.style.display = 'none';
@@ -29,7 +39,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
             // Display the generated prototype code
             generatedCodePre.textContent = data.generated_code;
         } else {
-            generatedCodePre.textContent = 'Error: ' + (data.error || 'Error');
+            generatedCodePre.textContent = 'Error: ' + (data.error || 'Unknown error');
         }
     })
     .catch(error => {
@@ -42,9 +52,16 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
 // Copy the generated code to clipboard
 document.getElementById('copy-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
-    navigator.clipboard.writeText(generatedCode).then(() => {
+    if (!generatedCode) {
+        alert('No code to copy!');
+        return;
+    }
+
+    navigator.clipboard.writeText(generatedCode)
+    .then(() => {
         alert("Code copied to clipboard!");
-    }).catch(err => {
+    })
+    .catch(err => {
         alert("Failed to copy: " + err);
     });
 });
@@ -52,6 +69,10 @@ document.getElementById('copy-button').addEventListener('click', function() {
 // Run the generated code in a new pop-up window
 document.getElementById('run-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
+    if (!generatedCode) {
+        alert('No code to run!');
+        return;
+    }
 
     // Open a new window
     const newWindow = window.open('', '_blank');
@@ -94,5 +115,5 @@ window.onscroll = function() {
 
 // Scroll to the top when the "Go to Top" button is clicked
 goToTopBtn.addEventListener('click', function() {
-    window.scrollTo({top: 0, behavior: 'smooth'}); // Smooth scrolling to top
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scrolling to top
 });
