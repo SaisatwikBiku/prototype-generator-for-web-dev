@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <!-- Sentinel element for Intersection Observer -->
     <div id="scroll-sentinel"></div>
 
     <nav>
@@ -20,67 +21,18 @@
             <li><a href="#team">Meet our Team</a></li>
             <li><a href="#contact">Contact Us</a></li>
         </ul>
+        <!-- Dark Mode Toggle -->
         <button id="dark-mode-toggle">Dark Mode</button>
     </nav>
 
     <div class="container">
+        <!-- Prototype generator section -->
         <div class="section" id="prototype-generator">
             <h1>Web Prototype Generator</h1>
             <div class="sub-section">
                 <form id="prototypeForm">
-                    <label for="description">Enter a description of your desired prototype:</label>
+                    <label for="description">Enter a description of your desired prototype. <br>Make sure you are <i><b>descriptive</b></i> about your expected output. The more details you give, the better output you get.</label>
                     <textarea id="description" name="description" rows="4" placeholder="e.g. A landing page for a restaurant with blue and white colors, including a header, footer, and contact form."></textarea>
-
-                    <label for="website-type">Select Website Type:</label>
-                    <select id="website-type" name="website-type" onchange="showCustomInput(this, 'website-type-custom')">
-                        <option value="landing page">Landing Page</option>
-                        <option value="portfolio">Portfolio</option>
-                        <option value="e-commerce">E-Commerce</option>
-                        <option value="blog">Blog</option>
-                        <option value="custom">Custom Input</option>
-                    </select>
-                    <input type="text" id="website-type-custom" name="website-type-custom" placeholder="Enter custom website type" style="display:none;">
-
-                    <label for="colors">Preferred Colors:</label>
-                    <select id="colors" name="colors" onchange="showCustomInput(this, 'colors-custom')">
-                        <option value="blue, white">Blue, White</option>
-                        <option value="black, gold">Black, Gold</option>
-                        <option value="red, white">Red, White</option>
-                        <option value="custom">Custom Input</option>
-                    </select>
-                    <input type="text" id="colors-custom" name="colors-custom" placeholder="Enter custom colors" style="display:none;">
-
-                    <label for="sections">Required Sections:</label>
-                    <select id="sections" name="sections" onchange="showCustomInput(this, 'sections-custom')">
-                        <option value="header, footer, contact form">Header, Footer, Contact Form</option>
-                        <option value="header, gallery, footer">Header, Gallery, Footer</option>
-                        <option value="hero, services, footer">Hero, Services, Footer</option>
-                        <option value="custom">Custom Input</option>
-                    </select>
-                    <input type="text" id="sections-custom" name="sections-custom" placeholder="Enter custom sections" style="display:none;">
-
-                    <label for="features">Required Features:</label>
-                    <select id="features" name="features" onchange="showCustomInput(this, 'features-custom')">
-                        <option value="responsive design, animations">Responsive Design, Animations</option>
-                        <option value="SEO optimization, fast load time">SEO Optimization, Fast Load Time</option>
-                        <option value="image gallery, contact form">Image Gallery, Contact Form</option>
-                        <option value="custom">Custom Input</option>
-                    </select>
-                    <input type="text" id="features-custom" name="features-custom" placeholder="Enter custom features" style="display:none;">
-
-                    <label for="image-categories">Image Theme (for Unsplash images):</label>
-                    <select id="image-categories" name="image-categories" onchange="showCustomInput(this, 'image-categories-custom')">
-                        <option value="nature">Nature</option>
-                        <option value="technology">Technology</option>
-                        <option value="city">City</option>
-                        <option value="office">Office</option>
-                        <option value="custom">Custom Input</option>
-                    </select>
-                    <input type="text" id="image-categories-custom" name="image-categories-custom" placeholder="Enter custom theme" style="display:none;">
-
-                    <label for="logo-url">Logo URL (optional):</label>
-                    <input type="url" id="logo-url" name="logo-url" placeholder="https://example.com/logo.png">
-
                     <button type="submit" class="btn">Generate Prototype</button>
                     <div class="loading-spinner" id="loading-spinner"></div>
                 </form>
@@ -98,7 +50,11 @@
         <!-- Project Overview section -->
         <div class="section" id="project-overview">
             <h2>Project Overview</h2>
-            <p>The Prototype Creator for Web Developers is designed to facilitate rapid website prototyping based on client requirements...</p>
+            <p>
+                The Prototype Creator for Web Developers is an innovative tool designed to facilitate rapid website prototyping based on client requirements. Users can either provide a natural language description or select key parameters from a dropdown menu. Using this input, the tool dynamically generates a customized web prototype through API integration, simplifying the design process and producing responsive, code-ready outputs that align with the client's vision.
+                <br><br>
+                The objective of this project is to automate the initial design phase, enabling developers to create prototypes quickly and easily. The tool utilizes natural language processing along with various input parameters to generate a web-ready output, enhancing collaboration between clients and developers.
+            </p>
         </div>
 
         <!-- Meet our team section -->
@@ -106,7 +62,7 @@
             <h2>Our Team</h2>
             <div class="team-container">
                 <img src="{{ url_for('static', filename='team.png') }}" alt="Team Photo" class="team-photo">
-                <p>We are Team 7 from the Software Engineering Class at the University at Albany...</p>
+                <p>We are Team 7 from the Software Engineering Class at the University at Albany. We aim to simplify web development with a quick prototyping tool.</p>
             </div>
         </div>
 
@@ -115,8 +71,14 @@
             <h2>Contact Us</h2>
             <p>If you have any questions or want to reach out to us, feel free to contact us!</p>
             <ul>
-                <li><strong>Sai Satwik Bikumandla:</strong> <a href="mailto:sbikumandla@albany.edu">sbikumandla@albany.edu</a></li>
-                <!-- More team contacts -->
+                <li><strong>Sai Satwik Bikumandla: </strong><a href="mailto:sbikumandla@albany.edu">sbikumandla@albany.edu</a></li>
+                <li><strong>Jyotsana R Parkhedkar: </strong><a href="mailto:jparkhedkar@albany.edu">jparkhedkar@albany.edu</a></li>
+                <li><strong>Sai Ram Navuluri: </strong><a href="mailto:snavuluri@albany.edu">snavuluri@albany.edu</a></li>
+                <li><strong>Shreyash Govind Mungilwar: </strong><a href="mailto:smungilwar@albany.edu">smungilwar@albany.edu</a></li>
+                <li><strong>Venkata Sylesh Kona: </strong><a href="mailto:vkona@albany.edu">vkona@albany.edu</a></li>
+                <li><strong>Sathvika Chiti: </strong><a href="mailto:schiti@albany.edu">schiti@albany.edu</a></li>
+                <li><strong>Joshna Gurram: </strong><a href="mailto:jgurram@gmail.edu">jgurram@gmail.edu</a></li>
+                <li><strong>Krishna Sree Guguloth: </strong><a href="mailto:kguguloth@albany.edu">kguguloth@albany.edu</a></li>
             </ul>
         </div>
     </div>
@@ -129,13 +91,5 @@
     <button id="go-to-top" title="Go to Top">Go to Top</button>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-    <script>
-        // Show custom input field when 'custom' is selected
-        function showCustomInput(selectElement, customInputId) {
-            const customInput = document.getElementById(customInputId);
-            customInput.style.display = selectElement.value === 'custom' ? 'block' : 'none';
-        }
-    </script>
 </body>
 </html>

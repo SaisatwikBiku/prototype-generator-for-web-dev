@@ -1,38 +1,13 @@
-// Function to show/hide custom input fields based on dropdown selection
-function showCustomInput(dropdown, customInputId) {
-    const customInputField = document.getElementById(customInputId);
-    if (dropdown.value === 'custom') {
-        customInputField.style.display = 'block';
-    } else {
-        customInputField.style.display = 'none';
-    }
-}
-
 // Form submission to generate prototype
 document.getElementById('prototypeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const description = document.getElementById('description').value;
-    const websiteType = document.getElementById('website-type').value;
-    const websiteTypeCustom = document.getElementById('website-type-custom').value;
-    const colors = document.getElementById('colors').value;
-    const colorsCustom = document.getElementById('colors-custom').value;
-    const sections = document.getElementById('sections').value;
-    const sectionsCustom = document.getElementById('sections-custom').value;
-    const features = document.getElementById('features').value;
-    const featuresCustom = document.getElementById('features-custom').value;
-    const logoUrl = document.getElementById('logo-url').value;
     const loadingSpinner = document.getElementById('loading-spinner');
     const generatedCodePre = document.getElementById('generated-code-pre');
 
-    // Construct the full prompt using either custom inputs or selected options
-    const finalWebsiteType = websiteType === 'custom' ? websiteTypeCustom : websiteType;
-    const finalColors = colors === 'custom' ? colorsCustom : colors;
-    const finalSections = sections === 'custom' ? sectionsCustom : sections;
-    const finalFeatures = features === 'custom' ? featuresCustom : features;
-
-    if (!description || !finalWebsiteType || !finalColors || !finalSections || !finalFeatures) {
-        alert('Please complete all the required fields.');
+    if (!description) {
+        alert('Please enter a description.');
         return;
     }
 
@@ -40,19 +15,14 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     loadingSpinner.style.display = 'inline-block';
     loadingSpinner.innerHTML = '<div class="spinner"></div>';
 
-    // Send the form data to the backend for generating the prototype
+    // Send description to backend and fetch the generated prototype
     fetch('/generate-prototype', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-            'description': description,
-            'website_type': finalWebsiteType,
-            'colors': finalColors,
-            'sections': finalSections,
-            'features': finalFeatures,
-            'logo_url': logoUrl
+            'description': description
         })
     })
     .then(response => {

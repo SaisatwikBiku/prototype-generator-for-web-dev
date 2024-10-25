@@ -111,7 +111,7 @@ nav ul li a:focus {
     border-radius: 8px;
 }
 
-textarea, select, input {
+textarea {
     width: 95%;
     padding: 10px;
     margin-top: 8px;
@@ -122,16 +122,6 @@ textarea, select, input {
     border-radius: 4px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-}
-
-/* Custom Input Fields (hidden by default) */
-input[type="text"], input[type="url"] {
-    display: block;
-}
-
-input[type="text"][style="display:none;"],
-input[type="url"][style="display:none;"] {
-    display: none;
 }
 
 /* Normal Mode Button Styles */
