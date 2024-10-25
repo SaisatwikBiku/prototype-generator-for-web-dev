@@ -10,10 +10,7 @@ import logging
 # Initialize the Flask app
 app = Flask(__name__)
 
-# Configure Gemini API with environment variables for security
-genai.configure(api_key=os.getenv('AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo'))
-
-# Unsplash API Access Key (also stored as environment variable)
+genai.configure(api_key='AIzaSyBlz1KHvma3-tfMXXemw9rYLsF-i4-EwKw')
 UNSPLASH_ACCESS_KEY = os.getenv('DLuEnJUi2bDtoz2AD3GzcjH382l8_3VwPX75lMXrsT0')
 
 # Download NLTK resources if not already downloaded
@@ -54,8 +51,8 @@ def fetch_images(keywords, num_images=3):
 
     return image_urls
 
-# Function to generate web prototype using Gemini API
-def generate_prototype(description):
+# Function to generate web prototype using Gemini API, including form responses in the prompt
+def generate_prototype(description, website_type, colors, sections, features, logo_url):
     try:
         # Extract relevant keywords from the user's description
         keywords = extract_keywords(description)
@@ -65,8 +62,18 @@ def generate_prototype(description):
         # Enhance the prompt to include the actual image URLs and define dimensions
         images_html = "".join([f'<img src="{url}" alt="{keywords}" style="width:100%; height:auto;">' for url in image_urls])
 
-        improved_prompt = f"""
-        You are an expert web developer assistant. Your task is to generate fully executable HTML, CSS, and JavaScript code based on the following description: {description}.
+        # Generate the structured prompt based on the user's input
+        structured_prompt = f"""
+        You are an expert web developer assistant. Your task is to generate fully executable HTML, CSS, and JavaScript code based on the following requirements:
+        
+        - Website type: {website_type}
+        - Colors: {colors}
+        - Sections: {sections}
+        - Features: {features}
+        - Logo URL: {logo_url if logo_url else "No logo provided"}
+        - Description of the website: {description}
+
+        Analyse the requirements and study the Description carefully to provide desired output to your client.
 
         The output must include:
         1. A complete and structured HTML document with sections such as <head>, <body>, and semantic tags like <header>, <section>, <footer>.
@@ -79,7 +86,7 @@ def generate_prototype(description):
         7. The generated page should have a clear navigation bar at the top, sections based on the content provided, and a footer. Ensure the page has proper spacing, margins, and padding for a balanced look.
         8. Ensure good typography with appropriate font sizes, line heights, and weights. Use a Google font like 'Roboto' or 'Open Sans' for a modern look.
 
-        The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be index.html file.
+        The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be an index.html file.
         """
 
         generation_config = {
@@ -90,13 +97,13 @@ def generate_prototype(description):
             "response_mime_type": "text/plain",
         }
 
-        # Generate the web prototype based on the description using the Gemini API
+        # Generate the web prototype based on the structured prompt using the Gemini API
         chat_session = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
             generation_config=generation_config,
         ).start_chat(
             history=[
-                {"role": "user", "parts": [improved_prompt]}
+                {"role": "user", "parts": [structured_prompt]}
             ]
         )
         
@@ -114,16 +121,21 @@ def index():
 @app.route('/generate-prototype', methods=['POST'])
 def generate_prototype_route():
     description = request.form.get('description')
+    website_type = request.form.get('website_type')
+    colors = request.form.get('colors')
+    sections = request.form.get('sections')
+    features = request.form.get('features')
+    logo_url = request.form.get('logo_url')
 
-    # Generate the prototype using the description
+    # Generate the prototype using the form responses
     try:
-        generated_code = generate_prototype(description)
+        generated_code = generate_prototype(description, website_type, colors, sections, features, logo_url)
         return jsonify({"generated_code": generated_code})
     except Exception as e:
         logger.error(f"Error in /generate-prototype: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Set the port dynamically with fallback to 5005
+    # Set the port dynamically with fallback to 5002
     port = int(os.getenv("PORT", 5002))
     app.run(debug=True, port=port)
