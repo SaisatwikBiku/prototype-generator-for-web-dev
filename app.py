@@ -71,7 +71,8 @@ def generate_prototype(description):
     7. The generated page should have a clear navigation bar at the top, sections based on the content provided, and a footer. Ensure the page has proper spacing, margins, and padding for a balanced look.
     8. Ensure good typography with appropriate font sizes, line heights, and weights. Use a Google font like 'Roboto' or 'Open Sans' for a modern look.
 
-    The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be index.html file.
+    Give high quality code with by following web development principles with modern web interfaces and structures UI components. The prototype should have funtionalities implemented using JavaScript. Emphasise equally on User Interface and Functionality.
+    The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be index.html file. The response should begin with <!DOCTYPE html> and must end with </html>.
     """
 
     generation_config = {
