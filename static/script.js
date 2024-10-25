@@ -1,28 +1,72 @@
-// Form submission to generate prototype
+// Form submission to generate prototype with additional questions
 document.getElementById('prototypeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const description = document.getElementById('description').value;
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const generatedCodePre = document.getElementById('generated-code-pre');
 
     if (!description) {
         alert('Please enter a description.');
         return;
     }
 
+    // Show the modal for additional questions
+    const modal = document.getElementById('additionalQuestionsModal');
+    modal.style.display = 'block';
+});
+
+// Hide or show the logo URL field based on the user's choice
+document.querySelectorAll('input[name="logo"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const logoURLField = document.getElementById('logoURL');
+        logoURLField.style.display = this.value === 'Yes' ? 'block' : 'none';
+    });
+});
+
+// Close modal when the user clicks the close button
+document.querySelector('.close').addEventListener('click', function() {
+    const modal = document.getElementById('additionalQuestionsModal');
+    modal.style.display = 'none';
+});
+
+// Handle additional questions and send the data to the backend
+document.getElementById('submitAdditionalQuestions').addEventListener('click', function() {
+    const description = document.getElementById('description').value;
+
+    // Retrieve values with checks to ensure elements are selected
+    const logo = document.querySelector('input[name="logo"]:checked');
+    const functionality = document.querySelector('input[name="functionality"]:checked');
+    const database = document.querySelector('input[name="database"]:checked');
+
+    // Ensure all required fields are selected
+    if (!logo || !functionality || !database) {
+        alert('Please answer all questions before submitting.');
+        return;
+    }
+
+    const logoURL = logo.value === 'Yes' ? document.getElementById('logoURL').value : null;
+    
+    const loadingSpinner = document.getElementById('loading-spinner');
+    const generatedCodePre = document.getElementById('generated-code-pre');
+    const downloadSQLBtn = document.getElementById('download-sql-btn');
+
+    // Close the modal after collecting the answers
+    document.getElementById('additionalQuestionsModal').style.display = 'none';
+
     // Show the loading spinner
     loadingSpinner.style.display = 'inline-block';
     loadingSpinner.innerHTML = '<div class="spinner"></div>';
 
-    // Send description to backend and fetch the generated prototype
+    // Send the collected data to the backend
     fetch('/generate-prototype', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
         },
-        body: new URLSearchParams({
-            'description': description
+        body: JSON.stringify({
+            description: description,
+            logo: logo.value === 'Yes' ? logoURL : null,
+            functionality: functionality.value === 'Yes',
+            database: database.value === 'Yes'
         })
     })
     .then(response => {
@@ -38,6 +82,13 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
         if (data.generated_code) {
             // Display the generated prototype code
             generatedCodePre.textContent = data.generated_code;
+
+            // Show the SQL download button if a database schema was requested
+            if (database.value === 'Yes') {
+                downloadSQLBtn.style.display = 'inline-block';
+            } else {
+                downloadSQLBtn.style.display = 'none';
+            }
         } else {
             generatedCodePre.textContent = 'Error: ' + (data.error || 'Unknown error');
         }
@@ -82,6 +133,11 @@ document.getElementById('run-button').addEventListener('click', function() {
     newWindow.document.write(generatedCode);
     newWindow.document.close();
 });
+
+// Function to download SQL schema if generated
+function downloadSQL() {
+    window.location.href = '/download-schema';
+}
 
 // Toggle dark mode and save preference to local storage
 const toggleSwitch = document.getElementById('dark-mode-toggle');

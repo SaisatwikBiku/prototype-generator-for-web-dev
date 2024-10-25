@@ -1,63 +1,54 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import google.generativeai as genai
 import requests
 import nltk
+import os
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import string
-
-app = Flask(__name__)
-
-# paste Gemini API here..
-genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo")  
-
-# Paste Unsplash API Access Key here.
-UNSPLASH_ACCESS_KEY = 'DLuEnJUi2bDtoz2AD3GzcjH382l8_3VwPX75lMXrsT0'
 
 # Download NLTK resources if not already downloaded
 nltk.download('stopwords')
 nltk.download('punkt')
 
-# Function to extract keywords from description
-def extract_keywords(description):
+app = Flask(__name__)
+
+# Configure Gemini API
+genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo")
+
+# Unsplash API Access Key
+UNSPLASH_ACCESS_KEY = 'DLuEnJUi2bDtoz2AD3GzcjH382l8_3VwPX75lMXrsT0'
+
+# Helper function to fetch images from Unsplash
+def fetch_images(description, num_images=3):
     stop_words = set(stopwords.words('english'))
     words = word_tokenize(description)
     keywords = [word for word in words if word.lower() not in stop_words and word.isalpha()]
-    return ", ".join(keywords[:5])  # Select top 5 keywords to keep it relevant
+    search_query = ", ".join(keywords[:5])
 
-# Function to fetch image URLs based on keywords in the description
-def fetch_images(keywords, num_images=3):
-    url = f"https://api.unsplash.com/search/photos"
+    url = "https://api.unsplash.com/search/photos"
     params = {
-        "query": keywords,
+        "query": search_query,
         "per_page": num_images,
         "client_id": UNSPLASH_ACCESS_KEY,
-        "orientation": "landscape"  # Ensures a consistent layout for landing pages
+        "orientation": "landscape"
     }
-    
     response = requests.get(url, params=params)
     image_urls = []
 
     if response.status_code == 200:
         data = response.json()
         for result in data['results']:
-            # Fetch regular-sized images that fit in boxed layout
             image_urls.append(result['urls']['regular'])
-    
+
     return image_urls
 
-# Function to generate web prototype using Gemini API
-def generate_prototype(description):
-    # Extract relevant keywords from the user's description
-    keywords = extract_keywords(description)
-    
-    # Fetch relevant images based on the extracted keywords
-    image_urls = fetch_images(keywords)
-    
-    # Enhance the prompt to include the actual image URLs and define dimensions
-    images_html = "".join([f'<img src="{url}" alt="{keywords}" style="width:100%; height:auto;">' for url in image_urls])
-    
-    improved_prompt = f"""
+# Helper function to generate prototype with Gemini API
+def generate_prototype(description, logo_url=None, functionality=False, multiple_pages=False):
+    image_urls = fetch_images(description)
+    images_html = "".join([f'<img src="{url}" alt="Image related to {description}" style="width:100%; height:auto;">' for url in image_urls])
+
+    # Build the detailed prompt for front-end prototype generation
+    prompt = f"""
     You are an expert web developer assistant. Your task is to generate fully executable HTML, CSS, and JavaScript code based on the following description: {description}.
 
     The output must include:
@@ -70,8 +61,17 @@ def generate_prototype(description):
     6. Include any required JavaScript functionality for interactive elements (e.g., buttons, forms, navigation bars). Write simple, clean JavaScript functions for interactivity, such as form handling or toggling content visibility.
     7. The generated page should have a clear navigation bar at the top, sections based on the content provided, and a footer. Ensure the page has proper spacing, margins, and padding for a balanced look.
     8. Ensure good typography with appropriate font sizes, line heights, and weights. Use a Google font like 'Roboto' or 'Open Sans' for a modern look.
+    """
 
-    Give high quality code with by following web development principles with modern web interfaces and structures UI components. The prototype should have funtionalities implemented using JavaScript. Emphasise equally on User Interface and Functionality.
+    if logo_url:
+        prompt += f"\nInclude the following logo at the top of the page: {logo_url}."
+
+    if functionality:
+        prompt += "\nEnsure the page is fully functional with necessary JavaScript interactivity. Use Pop-Ups. Once the page is opened, there should be a Pop-Up which welcomes the user to the webpage. Place interactive elements and funtional buttons with pop-ups relavent to the page content. For Example: If the user clicks on 'Order Now' button, then there should be a pop-up which says 'Order has been placed' this is just an example. You have to use relavent pop-ups in the relavent areas."
+
+
+    prompt += """
+    Give high quality code by following web development principles with modern web interfaces and structured UI components. The prototype should have functionalities implemented using JavaScript. Emphasize equally on User Interface and Functionality.
     The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be index.html file. The response should begin with <!DOCTYPE html> and must end with </html>.
     """
 
@@ -83,17 +83,45 @@ def generate_prototype(description):
         "response_mime_type": "text/plain",
     }
 
-    # Generate the web prototype based on the description using the Gemini API
     chat_session = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
         generation_config=generation_config,
     ).start_chat(
         history=[
-            {"role": "user", "parts": [improved_prompt]}
+            {"role": "user", "parts": [prompt]}
         ]
     )
-    
+
     response = chat_session.send_message("Generate the web prototype")
+    return response.text
+
+# Helper function to generate SQL schema with Gemini API
+def generate_sql_schema(description):
+    prompt = f"""
+    You are a database design assistant. Based on the web page described: {description},
+    generate an SQL schema that includes tables, primary keys, and necessary fields to support the functionality of this page.
+
+    Only output SQL code. Do not include explanations.
+    """
+
+    generation_config = {
+        "temperature": 1.2,
+        "top_p": 0.95,
+        "top_k": 64,
+        "max_output_tokens": 8192,
+        "response_mime_type": "text/plain",
+    }
+
+    chat_session = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        generation_config=generation_config,
+    ).start_chat(
+        history=[
+            {"role": "user", "parts": [prompt]}
+        ]
+    )
+
+    response = chat_session.send_message("Generate SQL schema")
     return response.text
 
 @app.route('/')
@@ -102,14 +130,33 @@ def index():
 
 @app.route('/generate-prototype', methods=['POST'])
 def generate_prototype_route():
-    description = request.form.get('description')
+    data = request.get_json()
 
-    # Generate the prototype using the description
+    description = data.get('description')
+    logo_url = data.get('logo')
+    functionality = data.get('functionality', False)
+    database = data.get('database', False)
+    multiple_pages = data.get('multiplePages', False)
+
     try:
-        generated_code = generate_prototype(description)
-        return jsonify({"generated_code": generated_code})
+        generated_code = generate_prototype(description, logo_url, functionality, multiple_pages)
+
+        sql_schema = None
+        if database:
+            sql_schema = generate_sql_schema(description)
+            with open('schema.sql', 'w') as file:
+                file.write(sql_schema)
+
+        return jsonify({"generated_code": generated_code, "sql_schema": database})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/download-schema')
+def download_schema():
+    if os.path.exists('schema.sql'):
+        return send_file('schema.sql', as_attachment=True)
+    else:
+        return jsonify({"error": "SQL schema not found"}), 404
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5005) #change port if required
+    app.run(debug=True, port=5005)  # Change port if required

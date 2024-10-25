@@ -39,11 +39,47 @@
             </div>
         </div>
 
+        <!-- Popup modal for additional questions -->
+        <div id="additionalQuestionsModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Additional Questions</h3>
+
+                <!-- Question 1: Logo -->
+                <div class="form-group">
+                    <label>Do you have a logo?</label><br>
+                    <input type="radio" id="logoYes" name="logo" value="Yes"> Yes
+                    <input type="radio" id="logoNo" name="logo" value="No" checked> No<br>
+                    <input type="url" id="logoURL" placeholder="Logo URL" style="display: none;">
+                </div>
+
+                <!-- Question 2: Functional prototype -->
+                <div class="form-group">
+                    <label>Do you need a functional prototype?</label><br>
+                    <input type="radio" id="functionalityYes" name="functionality" value="Yes"> Yes
+                    <input type="radio" id="functionalityNo" name="functionality" value="No" checked> No
+                </div>
+
+                <!-- Question 3: Database schema -->
+                <div class="form-group">
+                    <label>Do you want a database schema for this prototype?</label><br>
+                    <input type="radio" id="dbYes" name="database" value="Yes"> Yes
+                    <input type="radio" id="dbNo" name="database" value="No" checked> No
+                </div>
+
+                <button id="submitAdditionalQuestions" class="btn">Submit</button>
+            </div>
+        </div>
+
         <!-- Generated code section -->
         <div class="section" id="generated-code">
             <h2>Generated Code</h2>
             <button class="copy-btn" id="copy-button">Copy Code</button>
             <button class="run-btn" id="run-button">Run Code</button>
+            <br>
+            <!-- Download SQL Schema Button (Hidden by default, shown if a schema is generated) -->
+            <button id="download-sql-btn" class="btn" style="display: none;" onclick="downloadSQL()">Download SQL Schema</button>
+            <br><br>
             <pre id="generated-code-pre"></pre>
         </div>
 
@@ -90,6 +126,13 @@
     <!-- Go to Top Button -->
     <button id="go-to-top" title="Go to Top">Go to Top</button>
 
+    <!-- JavaScript to handle download and other actions -->
+    <script>
+        // Function to download SQL schema if generated
+        function downloadSQL() {
+            window.location.href = '/download-schema';
+        }
+    </script>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
