@@ -31,8 +31,56 @@
             <h1>Web Prototype Generator</h1>
             <div class="sub-section">
                 <form id="prototypeForm">
-                    <label for="description">Enter a description of your desired prototype. <br>Make sure you are <i><b>descriptive</b></i> about your expected output. The more details you give, the better output you get.</label>
+                    <!-- Natural Language Description -->
+                    <label for="description">Enter a description of your desired prototype:</label>
                     <textarea id="description" name="description" rows="4" placeholder="e.g. A landing page for a restaurant with blue and white colors, including a header, footer, and contact form."></textarea>
+
+                    <!-- Website Type Dropdown -->
+                    <label for="website-type">Select Website Type:</label>
+                    <select id="website-type" name="website-type" onchange="showCustomInput(this, 'website-type-custom')">
+                        <option value="landing page">Landing Page</option>
+                        <option value="portfolio">Portfolio</option>
+                        <option value="e-commerce">E-Commerce</option>
+                        <option value="blog">Blog</option>
+                        <option value="custom">Custom Input</option>
+                    </select>
+                    <input type="text" id="website-type-custom" name="website-type-custom" placeholder="Enter custom website type" style="display:none;">
+
+                    <!-- Preferred Colors Dropdown -->
+                    <label for="colors">Preferred Colors:</label>
+                    <select id="colors" name="colors" onchange="showCustomInput(this, 'colors-custom')">
+                        <option value="blue, white">Blue, White</option>
+                        <option value="black, gold">Black, Gold</option>
+                        <option value="red, white">Red, White</option>
+                        <option value="custom">Custom Input</option>
+                    </select>
+                    <input type="text" id="colors-custom" name="colors-custom" placeholder="Enter custom colors" style="display:none;">
+
+                    <!-- Sections Dropdown -->
+                    <label for="sections">Required Sections:</label>
+                    <select id="sections" name="sections" onchange="showCustomInput(this, 'sections-custom')">
+                        <option value="header, footer, contact form">Header, Footer, Contact Form</option>
+                        <option value="header, gallery, footer">Header, Gallery, Footer</option>
+                        <option value="hero, services, footer">Hero, Services, Footer</option>
+                        <option value="custom">Custom Input</option>
+                    </select>
+                    <input type="text" id="sections-custom" name="sections-custom" placeholder="Enter custom sections" style="display:none;">
+
+                    <!-- Features Dropdown -->
+                    <label for="features">Required Features:</label>
+                    <select id="features" name="features" onchange="showCustomInput(this, 'features-custom')">
+                        <option value="responsive design, animations">Responsive Design, Animations</option>
+                        <option value="SEO optimization, fast load time">SEO Optimization, Fast Load Time</option>
+                        <option value="image gallery, contact form">Image Gallery, Contact Form</option>
+                        <option value="custom">Custom Input</option>
+                    </select>
+                    <input type="text" id="features-custom" name="features-custom" placeholder="Enter custom features" style="display:none;">
+
+                    <!-- Logo URL -->
+                    <label for="logo-url">Logo URL (optional):</label>
+                    <input type="url" id="logo-url" name="logo-url" placeholder="https://example.com/logo.png">
+
+                    <!-- Generate Button -->
                     <button type="submit" class="btn">Generate Prototype</button>
                     <div class="loading-spinner" id="loading-spinner"></div>
                 </form>
