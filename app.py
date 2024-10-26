@@ -64,7 +64,7 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
     """
 
     if logo_url:
-        prompt += f"\nInclude the following logo at the top of the page: {logo_url}."
+        prompt += f"\nInclude the following logo at the top of the page: {logo_url}. Add the logo at appropriate area of the page and keep it properly formatted along with the overall webpage"
 
     if functionality:
         prompt += "\nEnsure the page is fully functional with necessary JavaScript interactivity. Use Pop-Ups. Once the page is opened, there should be a Pop-Up which welcomes the user to the webpage. Place interactive elements and functional buttons with pop-ups relevant to the page content."
