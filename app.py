@@ -47,32 +47,42 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
     image_urls = fetch_images(description)
     images_html = "".join([f'<img src="{url}" alt="Image related to {description}" style="width:100%; height:auto;">' for url in image_urls])
 
-    # Build the detailed prompt for front-end prototype generation
+    # Build the detailed prompt for front-end prototype generation - Used GenAI to improve this prompt
     prompt = f"""
-    You are an expert web developer assistant. Your task is to generate fully executable HTML, CSS, and JavaScript code based on the following description: {description}.
+    As a skilled web development assistant, your role is to generate fully executable, high-quality HTML, CSS, and JavaScript code that aligns with the following description: {description}.
 
-    The output must include:
-    1. A complete and structured HTML document with sections such as <head>, <body>, and semantic tags like <header>, <section>, <footer>.
-    2. Responsive design that works well on both mobile and desktop screens. Use media queries to handle responsiveness.
-    3. Use modern design principles, such as Flexbox or CSS Grid, for layout management. Ensure the page follows best practices for a clean and user-friendly interface.
-    4. Use the following actual images in the appropriate sections of the prototype (with relevant dimensions for boxed layout):
-    {images_html}
-    5. Generate internal CSS styles, avoiding external dependencies like Bootstrap, and use a modern, clean color scheme. Make sure the colors are complementary to the theme described.
-    6. Include any required JavaScript functionality for interactive elements (e.g., buttons, forms, navigation bars). Write simple, clean JavaScript functions for interactivity, such as form handling or toggling content visibility.
-    7. The generated page should have a clear navigation bar at the top, sections based on the content provided, and a footer. Ensure the page has proper spacing, margins, and padding for a balanced look.
-    8. Ensure good typography with appropriate font sizes, line heights, and weights. Use a Google font like 'Roboto' or 'Open Sans' for a modern look.
+    Your output should include:
+    1. A well-structured HTML5 document with properly organized sections, including <head>, <body>, and semantic tags such as <header>, <main>, <section>, and <footer>.
+    2. A fully responsive design that adapts seamlessly across mobile and desktop screens. Use media queries to ensure the layout remains user-friendly and functional on all device sizes.
+    3. Modern layout techniques such as Flexbox or CSS Grid for clean, efficient layout management. Follow best practices to create an intuitive, easy-to-navigate user interface.
+    4. Incorporate the following images in the specified sections of the layout, ensuring correct dimensions and positioning for a polished, boxed design:
+       {images_html}
+    5. Utilize internal CSS styles to keep the code self-contained, avoiding external libraries like Bootstrap. Apply a modern, clean color scheme that complements the described theme.
+    6. Embed JavaScript for interactivity, implementing only necessary and relevant functions (e.g., for form handling, toggling content visibility, or button actions). Ensure JavaScript code is clean and minimally dependent on external functions.
+    7. Include a clear navigation bar at the top, structured sections based on content requirements, and a footer. Use well-balanced spacing, margins, and padding to maintain a visually harmonious layout.
+    8. Maintain appealing typography with well-sized fonts, balanced line spacing, and weights that enhance readability. Include a modern Google font like 'Roboto' or 'Open Sans' to give the design a professional finish.
     """
 
     if logo_url:
-        prompt += f"\nInclude the following logo at an appropriate area of the page according to the modern web standards: {logo_url}. Add the logo at appropriate area of the page and keep it properly formatted along with the overall webpage"
+        prompt += f"\nPlace the following logo prominently within the layout, following modern web design standards: {logo_url}.
+    - Position the logo in an intuitive and visually balanced location, such as the top-left corner of the header, ensuring it aligns with the overall page structure.
+    - Apply appropriate formatting to integrate the logo seamlessly with the design, including responsive sizing and padding to maintain clarity and proportion on various screen sizes.
+    - Ensure the logo is styled consistently with the theme and layout, complementing the page's color scheme and aesthetic."
 
     if functionality:
-        prompt += "\nEnsure the page is fully functional with necessary JavaScript interactivity. Use Pop-Ups. Once the page is opened, there should be a Pop-Up which welcomes the user to the webpage. Place interactive elements and functional buttons with pop-ups relevant to the page content."
+        prompt += '''\nEnsure the webpage includes all necessary JavaScript for interactivity, creating a dynamic user experience. Implement the following interactive features:
+    - A welcome pop-up that appears when the page loads, greeting the user and enhancing engagement. This pop-up should be dismissible and styled to match the page theme.
+    - Add interactive elements, such as buttons and forms, that use pop-up modals or alerts relevant to the page content. These elements should be intuitive and provide feedback or additional information when interacted with.
+    - Design pop-ups to appear contextually, ensuring they enhance navigation and user experience without overwhelming the layout. '''
 
     prompt += """
-    Give high quality code by following web development principles with modern web interfaces and structured UI components. The prototype should have functionalities implemented using JavaScript. Emphasize equally on User Interface and Functionality.
-    The response should only contain HTML code with CSS, and JavaScript embedded in it. No explanations or additional text are required. Output should be index.html file. The response should begin with <!DOCTYPE html> and must end with </html>.
-    """
+    Provide high-quality, professional code that adheres to modern web development standards, using well-structured UI components and best practices for clean, maintainable design.
+    - Ensure the prototype is fully functional, with JavaScript handling all interactive elements.
+    - Balance the focus on both User Interface (UI) and User Experience (UX), creating an interface that is visually appealing and intuitive to navigate.
+    - The response should consist solely of an HTML document with embedded CSS and JavaScript. No additional explanations or comments are needed.
+    - The output should be a complete and ready-to-run 'index.html' file, starting with <!DOCTYPE html> and ending with </html>.
+"""
+
 
     generation_config = {
         "temperature": 1.6,
