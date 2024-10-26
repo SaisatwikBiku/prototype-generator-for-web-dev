@@ -67,8 +67,7 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
         prompt += f"\nInclude the following logo at the top of the page: {logo_url}."
 
     if functionality:
-        prompt += "\nEnsure the page is fully functional with necessary JavaScript interactivity. Use Pop-Ups. Once the page is opened, there should be a Pop-Up which welcomes the user to the webpage. Place interactive elements and funtional buttons with pop-ups relavent to the page content. For Example: If the user clicks on 'Order Now' button, then there should be a pop-up which says 'Order has been placed' this is just an example. You have to use relavent pop-ups in the relavent areas."
-
+        prompt += "\nEnsure the page is fully functional with necessary JavaScript interactivity. Use Pop-Ups. Once the page is opened, there should be a Pop-Up which welcomes the user to the webpage. Place interactive elements and functional buttons with pop-ups relevant to the page content."
 
     prompt += """
     Give high quality code by following web development principles with modern web interfaces and structured UI components. The prototype should have functionalities implemented using JavaScript. Emphasize equally on User Interface and Functionality.
@@ -95,11 +94,13 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
     response = chat_session.send_message("Generate the web prototype")
     return response.text
 
-# Helper function to generate SQL schema with Gemini API
-def generate_sql_schema(description):
+# Helper function to generate SQL schema based on HTML code
+def generate_sql_schema(html_code):
     prompt = f"""
-    You are a database design assistant. Based on the web page described: {description},
-    generate an SQL schema that includes tables, primary keys, and necessary fields to support the functionality of this page.
+    You are a database design assistant. Based on the following HTML code for a web page, generate an SQL schema that includes tables, primary keys, and necessary fields to support the functionality of this page.
+
+    HTML Code:
+    {html_code}
 
     Only output SQL code. Do not include explanations.
     """
@@ -139,11 +140,13 @@ def generate_prototype_route():
     multiple_pages = data.get('multiplePages', False)
 
     try:
+        # First API Call - Generate the front-end code
         generated_code = generate_prototype(description, logo_url, functionality, multiple_pages)
 
         sql_schema = None
+        # Second API Call - Generate SQL schema if requested
         if database:
-            sql_schema = generate_sql_schema(description)
+            sql_schema = generate_sql_schema(generated_code)
             with open('schema.sql', 'w') as file:
                 file.write(sql_schema)
 
