@@ -49,25 +49,27 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
 
     # Build the detailed prompt for front-end prototype generation - Used GenAI to improve this prompt
     prompt = f"""
-    As a skilled web development assistant, your role is to generate fully executable, high-quality HTML, CSS, and JavaScript code that aligns with the following description: {description}.
+    As an expert web development assistant, your task is to create fully executable, high-quality HTML, CSS, and JavaScript code that meets the following project description: {description}.
 
-    Your output should include:
-    1. A well-structured HTML5 document with properly organized sections, including <head>, <body>, and semantic tags such as <header>, <main>, <section>, and <footer>.
-    2. A fully responsive design that adapts seamlessly across mobile and desktop screens. Use media queries to ensure the layout remains user-friendly and functional on all device sizes.
-    3. Modern layout techniques such as Flexbox or CSS Grid for clean, efficient layout management. Follow best practices to create an intuitive, easy-to-navigate user interface.
-    4. Incorporate the following images in the specified sections of the layout, ensuring correct dimensions and positioning for a polished, boxed design:
+    Your output must include:
+    1. A fully structured HTML5 document with well-organized sections, including <head>, <body>, and semantic tags like <header>, <main>, <section>, and <footer>, following best practices for readability and accessibility.
+    2. A responsive design that adapts seamlessly to both mobile and desktop screens. Employ media queries to ensure an optimal, user-friendly experience across all device sizes.
+    3. Modern layout techniques, such as Flexbox or CSS Grid, to create a clean, efficient layout that enhances user navigation and visual appeal.
+    4. Integration of the following images in the specified sections of the layout, with appropriate dimensions and positioning for a polished, boxed design:
        {images_html}
-    5. Utilize internal CSS styles to keep the code self-contained, avoiding external libraries like Bootstrap. Apply a modern, clean color scheme that complements the described theme.
-    6. Embed JavaScript for interactivity, implementing only necessary and relevant functions (e.g., for form handling, toggling content visibility, or button actions). Ensure JavaScript code is clean and minimally dependent on external functions.
-    7. Include a clear navigation bar at the top, structured sections based on content requirements, and a footer. Use well-balanced spacing, margins, and padding to maintain a visually harmonious layout.
-    8. Maintain appealing typography with well-sized fonts, balanced line spacing, and weights that enhance readability. Include a modern Google font like 'Roboto' or 'Open Sans' to give the design a professional finish.
+    5. Self-contained internal CSS styles that avoid external libraries (e.g., Bootstrap), with a modern, visually clean color scheme that complements the described theme.
+    6. Embedded JavaScript to add relevant interactivity, such as form handling, toggling content, or button actions. Code should be minimalistic, focusing only on required functionalities.
+    7. A clear and accessible navigation bar at the top, with organized sections based on content needs and a footer at the bottom. Utilize balanced spacing, margins, and padding to achieve a cohesive and visually harmonious layout.
+    8. Consistent, appealing typography with well-chosen font sizes, line spacing, and weights to enhance readability. Use a Google font like 'Roboto' or 'Open Sans' for a professional, modern look.
+    9. Consistent styling throughout the interface, ensuring that sizes, colors, and spacing align to maintain a cohesive user experience.
+    10. The response should be a complete, standalone 'index.html' file, starting with <!DOCTYPE html> and ending with </html>, without additional comments or explanations.
     """
 
     if logo_url:
         prompt += f"\nPlace the following logo prominently within the layout, following modern web design standards: {logo_url}. \n- Position the logo in an intuitive and visually balanced location, such as the top-left corner of the header, ensuring it aligns with the overall page structure. \n- Apply appropriate formatting to integrate the logo seamlessly with the design, including responsive sizing and padding to maintain clarity and proportion on various screen sizes.\n - Ensure the logo is styled consistently with the theme and layout, complementing the page's color scheme and aesthetic."
 
     if functionality:
-        prompt += "\nEnsure the webpage includes all necessary JavaScript for interactivity, creating a dynamic user experience. Implement the following interactive features:\n - A welcome pop-up that appears when the page loads, greeting the user and enhancing engagement. This pop-up should be dismissible and styled to match the page theme. \n- Add interactive elements, such as buttons and forms, that use pop-up modals or alerts relevant to the page content. These elements should be intuitive and provide feedback or additional information when interacted with. \n - Design pop-ups to appear contextually, ensuring they enhance navigation and user experience without overwhelming the layout. "
+        prompt += "\nEnsure the webpage includes all necessary JavaScript for interactivity, creating a dynamic user experience. Implement the following interactive features:\n - A welcome pop-up that appears when the page loads, greeting the user and enhancing engagement. This pop-up should be dismissible and styled to match the page theme. \n- Add interactive elements, such as buttons and forms, that use pop-up modals or alerts relevant to the page content. These elements should be intuitive and provide feedback or additional information when interacted with. \n - Design pop-ups to appear contextually, ensuring they enhance navigation and user experience without overwhelming the layout. \n- Make the Menu of the NavBar funtional"
 
     prompt += """
     Provide high-quality, professional code that adheres to modern web development standards, using well-structured UI components and best practices for clean, maintainable design.
