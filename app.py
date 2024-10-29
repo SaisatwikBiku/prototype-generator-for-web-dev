@@ -32,7 +32,7 @@ genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo")
 # Unsplash API Access Key
 UNSPLASH_ACCESS_KEY = 'DLuEnJUi2bDtoz2AD3GzcjH382l8_3VwPX75lMXrsT0'
 
-# Kona Vemnkata Sylesh: Image Fetching Helper Function
+# Kona Venkata Sylesh: Image Fetching Helper Function
 
 # Helper function to fetch images from Unsplash
 def fetch_images(description, num_images=3):
@@ -151,7 +151,7 @@ def generate_sql_schema(html_code):
     response = chat_session.send_message("Generate SQL schema")
     return response.text
 
-# Sai Ram: Main Routes Setup
+# Sai Ram Navuluri: Main Routes Setup
 
 @app.route('/')
 def index():
@@ -184,7 +184,7 @@ def generate_prototype_route():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Shreyash: SQL Schema Download Route
+# Shreyash Govind Mungilwar: SQL Schema Download Route
 
 @app.route('/download-schema')
 def download_schema():
