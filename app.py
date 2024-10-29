@@ -1,3 +1,15 @@
+# app.py - Main application file for the Web Prototype Generator
+
+'''
+This code is being built simultaneously by all team members.
+
+The contribution is clearly mentioned in the following Format: '{Team Member Name} - Team Member's Contribution'
+
+Whenever a Team member make any change pushes the code, they will highlight their part of the contribution with comments.
+
+This source code has few components created using ChatGPT-4o and they are clearly mentioned.
+'''
+
 from flask import Flask, render_template, request, jsonify, send_file
 import google.generativeai as genai
 import requests
@@ -5,6 +17,8 @@ import nltk
 import os
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+
+# Sathvika Chitti: Setup and Configuration
 
 # Download NLTK resources if not already downloaded
 nltk.download('stopwords')
@@ -17,6 +31,8 @@ genai.configure(api_key="AIzaSyCZbyF-hRHTxcoiCpKMAMpqZSTsgR68BDo")
 
 # Unsplash API Access Key
 UNSPLASH_ACCESS_KEY = 'DLuEnJUi2bDtoz2AD3GzcjH382l8_3VwPX75lMXrsT0'
+
+# Kona Vemnkata Sylesh: Image Fetching Helper Function
 
 # Helper function to fetch images from Unsplash
 def fetch_images(description, num_images=3):
@@ -42,12 +58,14 @@ def fetch_images(description, num_images=3):
 
     return image_urls
 
+# Sai Satwik Bikumandla: Prototype Generation Helper Function
+
 # Helper function to generate prototype with Gemini API
 def generate_prototype(description, logo_url=None, functionality=False, multiple_pages=False):
     image_urls = fetch_images(description)
     images_html = "".join([f'<img src="{url}" alt="Image related to {description}" style="width:100%; height:auto;">' for url in image_urls])
 
-    # Build the detailed prompt for front-end prototype generation - Used GenAI to improve this prompt
+    # Build the detailed prompt for front-end prototype generation - Used GenAI's Assistance to improve this prompt- First written a rough prompt then gave to ChatGPT-4o and refined the old prompt
     prompt = f"""
     As an expert web development assistant, your task is to create fully executable, high-quality HTML, CSS, and JavaScript code that meets the following project description: {description}.
 
@@ -100,6 +118,8 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
     response = chat_session.send_message("Generate the web prototype")
     return response.text
 
+# Jyotsana Parkhedkar: SQL Schema Generation Helper Function
+
 # Helper function to generate SQL schema based on HTML code
 def generate_sql_schema(html_code):
     prompt = f"""
@@ -131,9 +151,13 @@ def generate_sql_schema(html_code):
     response = chat_session.send_message("Generate SQL schema")
     return response.text
 
+# Sai Ram: Main Routes Setup
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# Sai Satwik Bikumandla: Prototype Generation Route
 
 @app.route('/generate-prototype', methods=['POST'])
 def generate_prototype_route():
@@ -160,12 +184,16 @@ def generate_prototype_route():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Shreyash: SQL Schema Download Route
+
 @app.route('/download-schema')
 def download_schema():
     if os.path.exists('schema.sql'):
         return send_file('schema.sql', as_attachment=True)
     else:
         return jsonify({"error": "SQL schema not found"}), 404
+
+# Krishna Sree: Application Run Configuration
 
 if __name__ == '__main__':
     app.run(debug=True, port=5005)  # Change port if required

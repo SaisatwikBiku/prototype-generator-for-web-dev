@@ -1,4 +1,13 @@
-// Form submission to generate prototype with additional questions
+//This code is being built simultaneously by all team members.
+
+//The contribution is clearly mentioned in the following Format: '{Team Member Name} - Team Member's Contribution'
+
+//Whenever a Team member make any change pushes the code, they will highlight their part of the contribution with comments.
+
+//This source code has few components created using ChatGPT-4o and they are clearly mentioned.
+
+
+// Sai Ram Navuluri - Form submission to generate prototype with additional questions
 document.getElementById('prototypeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -14,7 +23,7 @@ document.getElementById('prototypeForm').addEventListener('submit', function(eve
     modal.style.display = 'block';
 });
 
-// Hide or show the logo URL field based on the user's choice
+// Krishna Sree Guguloth - Toggle logo URL field based on the user's choice
 document.querySelectorAll('input[name="logo"]').forEach(radio => {
     radio.addEventListener('change', function() {
         const logoURLField = document.getElementById('logoURL');
@@ -22,13 +31,13 @@ document.querySelectorAll('input[name="logo"]').forEach(radio => {
     });
 });
 
-// Close modal when the user clicks the close button
+// Jyotsana R Parkhedkar - Close modal when the user clicks the close button
 document.querySelector('.close').addEventListener('click', function() {
     const modal = document.getElementById('additionalQuestionsModal');
     modal.style.display = 'none';
 });
 
-// Handle additional questions and send the data to the backend
+// Sathvika Chiti - Handle additional questions and send data to the backend
 document.getElementById('submitAdditionalQuestions').addEventListener('click', function() {
     const description = document.getElementById('description').value;
 
@@ -100,7 +109,7 @@ document.getElementById('submitAdditionalQuestions').addEventListener('click', f
     });
 });
 
-// Copy the generated code to clipboard
+// Venkata Sylesh Kona - Copy the generated code to clipboard
 document.getElementById('copy-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
     if (!generatedCode) {
@@ -117,7 +126,7 @@ document.getElementById('copy-button').addEventListener('click', function() {
     });
 });
 
-// Run the generated code in a new pop-up window
+// Joshna Gurram - Run the generated code in a new pop-up window
 document.getElementById('run-button').addEventListener('click', function() {
     const generatedCode = document.getElementById('generated-code-pre').textContent;
     if (!generatedCode) {
@@ -134,12 +143,7 @@ document.getElementById('run-button').addEventListener('click', function() {
     newWindow.document.close();
 });
 
-// Function to download SQL schema if generated
-function downloadSQL() {
-    window.location.href = '/download-schema';
-}
-
-// Toggle dark mode and save preference to local storage
+// Shreyash Govind Mungilwar - Toggle dark mode and save preference to local storage
 const toggleSwitch = document.getElementById('dark-mode-toggle');
 const currentTheme = localStorage.getItem('theme');
 
@@ -158,7 +162,7 @@ toggleSwitch.addEventListener('click', function() {
     localStorage.setItem('theme', theme);
 });
 
-// Show "Go to Top" button when scrolling
+// Sai Satwik Bikumandla - Show "Go to Top" button when scrolling
 const goToTopBtn = document.getElementById('go-to-top');
 
 window.onscroll = function() {
@@ -169,7 +173,12 @@ window.onscroll = function() {
     }
 };
 
-// Scroll to the top when the "Go to Top" button is clicked
+// Sai Satwik Bikumandla - Scroll to the top when the "Go to Top" button is clicked
 goToTopBtn.addEventListener('click', function() {
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scrolling to top
 });
+
+// Jyotsana R Parkhedkar - Function to download SQL schema if generated
+function downloadSQL() {
+    window.location.href = '/download-schema';
+}
