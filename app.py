@@ -67,35 +67,42 @@ def generate_prototype(description, logo_url=None, functionality=False, multiple
 
     # Build the detailed prompt for front-end prototype generation - Used GenAI's Assistance to improve this prompt- First written a rough prompt then gave to ChatGPT-4o and refined the old prompt
     prompt = f"""
-    As an expert web development assistant, your task is to create fully executable, high-quality HTML, CSS, and JavaScript code that meets the following project description: {description}.
+    As an expert in professional web development, create a comprehensive, high-fidelity HTML, CSS, and JavaScript codebase that meets the following project description: {description}.
 
-    Your output must include:
-    1. A fully structured HTML5 document with well-organized sections, including <head>, <body>, and semantic tags like <header>, <main>, <section>, and <footer>, following best practices for readability and accessibility.
-    2. A responsive design that adapts seamlessly to both mobile and desktop screens. Employ media queries to ensure an optimal, user-friendly experience across all device sizes.
-    3. Modern layout techniques, such as Flexbox or CSS Grid, to create a clean, efficient layout that enhances user navigation and visual appeal.
-    4. Integration of the following images in the specified sections of the layout, with appropriate dimensions and positioning for a polished, boxed design:
-       {images_html}
-    5. Self-contained internal CSS styles that avoid external libraries (e.g., Bootstrap), with a modern, visually clean color scheme that complements the described theme.
-    6. Embedded JavaScript to add relevant interactivity, such as form handling, toggling content, or button actions. Code should be minimalistic, focusing only on required functionalities.
-    7. A clear and accessible navigation bar at the top, with organized sections based on content needs and a footer at the bottom. Utilize balanced spacing, margins, and padding to achieve a cohesive and visually harmonious layout.
-    8. Consistent, appealing typography with well-chosen font sizes, line spacing, and weights to enhance readability. Use a Google font like 'Roboto' or 'Open Sans' for a professional, modern look.
-    9. Consistent styling throughout the interface, ensuring that sizes, colors, and spacing align to maintain a cohesive user experience.
-    10. The response should be a complete, standalone 'index.html' file, starting with <!DOCTYPE html> and ending with </html>, without additional comments or explanations.
+    The code should adhere to the following requirements:
+    1. A well-structured HTML5 document starting with <!DOCTYPE html> and including all essential sections like <head>, <body>, semantic tags (<header>, <main>, <section>, <footer>), with thoughtful use of <div> and <span> elements as needed for layout precision.
+    2. A highly responsive design with finely-tuned media queries that seamlessly adapts to mobile, tablet, and desktop screens, ensuring all elements scale gracefully.
+    3. Utilize CSS Grid or Flexbox exclusively for a clean, modern layout, with each section logically organized and aligned. Aim for balanced spacing and alignment that achieves a polished, pixel-perfect look.
+    4. Placement and formatting of the following images within the layout, styled with appropriate dimensions, padding, and alignment to maintain aesthetic balance: {images_html}.
+    5. Embedded, self-contained CSS styles that avoid external libraries (e.g., Bootstrap). Select a refined, modern color palette that enhances readability and supports a cohesive design theme.
+    6. Implement JavaScript for interactivity in a clean, modular way. Focus on essential features like form handling, content toggling, button actions, and a smooth navigation experience.
+    7. A minimalist, accessible navigation bar positioned at the top of the layout, and a footer with relevant content at the bottom. The navigation bar should include hover and active states to indicate current page sections.
+    8. Consistent, visually appealing typography using a Google font like 'Roboto' or 'Open Sans', with deliberate choices in font size, weight, and spacing to enhance readability and professionalism.
+    9. Attention to detail in UI consistency, ensuring all sizes, colors, and spacing choices contribute to a unified and professional design. Maintain uniform margins, padding, and alignment for all elements.
+    10. The output should be a complete and standalone 'index.html' file, with embedded CSS and JavaScript, containing no comments or additional text, ready for immediate use. There should not be any other text other than the executable code.
     """
 
     if logo_url:
-        prompt += f"\nPlace the following logo prominently within the layout, following modern web design standards: {logo_url}. \n- Position the logo in an intuitive and visually balanced location, such as the top-left corner of the header, ensuring it aligns with the overall page structure. \n- Apply appropriate formatting to integrate the logo seamlessly with the design, including responsive sizing and padding to maintain clarity and proportion on various screen sizes.\n - Ensure the logo is styled consistently with the theme and layout, complementing the page's color scheme and aesthetic."
+        prompt += f"""
+        Incorporate the provided logo prominently in the layout following modern design practices: {logo_url}. 
+        - Position the logo in an optimal location, such as the top-left corner, making it clear yet balanced within the header.
+        - Adjust the logo dimensions to ensure clarity and proportion across screen sizes, using padding to maintain visual separation from other elements.
+        - Style the logo in harmony with the chosen theme, allowing it to naturally complement the page’s color scheme.
+        """
 
     if functionality:
-        prompt += "\nEnsure the webpage includes all necessary JavaScript for interactivity, creating a dynamic user experience. Implement the following interactive features:\n - A welcome pop-up that appears when the page loads, greeting the user and enhancing engagement. This pop-up should be dismissible and styled to match the page theme. \n- Add interactive elements, such as buttons and forms, that use pop-up modals or alerts relevant to the page content. These elements should be intuitive and provide feedback or additional information when interacted with. \n - Design pop-ups to appear contextually, ensuring they enhance navigation and user experience without overwhelming the layout. \n- Make the Menu of the NavBar funtional"
+        prompt += """
+        Integrate JavaScript-based interactivity to enhance the user experience. Required interactive features include:
+        - A greeting pop-up upon page load, with dismissible functionality, styled in alignment with the page theme.
+        - Responsive interactive elements, such as buttons and forms, that trigger modals or alerts as appropriate to the page content.
+        - Menu functionality for the navigation bar, enabling smooth scrolling and navigation among sections.
+        """
 
     prompt += """
-    Provide high-quality, professional code that adheres to modern web development standards, using well-structured UI components and best practices for clean, maintainable design.
-    - Ensure the prototype is fully functional, with JavaScript handling all interactive elements.
-    - Balance the focus on both User Interface (UI) and User Experience (UX), creating an interface that is visually appealing and intuitive to navigate.
-    - The response should consist solely of an HTML document with embedded CSS and JavaScript. No additional explanations or comments are needed.
-    - The output should be a complete and ready-to-run 'index.html' file, starting with <!DOCTYPE html> and ending with </html>.
-"""
+    Ensure the HTML, CSS, and JavaScript code is clean, optimized, and adheres to best practices in modern web development.
+    - Focus on both User Interface (UI) and User Experience (UX), prioritizing ease of use and aesthetics.
+    - Output should be a complete HTML document, starting with <!DOCTYPE html> and ending with </html>, formatted to provide a pixel-perfect, professional finish.
+    """
 
 
     generation_config = {
